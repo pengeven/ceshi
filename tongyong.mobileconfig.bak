@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <!-- 只保留两个DNS配置 -->
+        <dict>
+            <key>DNSSettings</key>
+            <dict>
+                <key>DNSProtocol</key>
+                <string>HTTPS</string>
+                <key>ServerURL</key>
+                <string>https://vevrl9air2.cloudflare-gateway.com/dns-query</string>
+            </dict>
+            <key>OnDemandRules</key>
+            <array>
+                <dict>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+            </array>
+            <key>PayloadDisplayName</key>
+            <string>屏蔽证书验证-DNS</string>
+            <key>PayloadIdentifier</key>
+            <string>com.certblock.dns.primary</string>
+            <key>PayloadOrganization</key>
+            <string>证书屏蔽工具</string>
+            <key>PayloadType</key>
+            <string>com.apple.dnsSettings.managed</string>
+            <key>PayloadUUID</key>
+            <string>3146044e-a85a-4133-b0fd-2e25d0fdb98c</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+        </dict>
+        
+        <dict>
+            <key>DNSSettings</key>
+            <dict>
+                <key>DNSProtocol</key>
+                <string>HTTPS</string>
+                <key>ServerURL</key>
+                <string>https://cloudflare-dns.com/dns-query</string>
+                <key>SupplementalMatchDomains</key>
+                <array>
+                    <!-- 所有要屏蔽的域名列表 -->
+                    <string>ocsp.apple.com</string>
+                    <string>ocsp2.apple.com</string>
+                    <!-- ... 其他域名 ... -->
+                    <string>vevrl9air2.cloudflare-gateway.com</string>
+                    <string>cloudflare-gateway.com</string>
+                </array>
+            </dict>
+            <key>OnDemandRules</key>
+            <array>
+                <dict>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+            </array>
+            <key>PayloadDisplayName</key>
+            <string>屏蔽验证服务器</string>
+            <key>PayloadIdentifier</key>
+            <string>com.certblock.dns.apple</string>
+            <key>PayloadOrganization</key>
+            <string>证书屏蔽工具</string>
+            <key>PayloadType</key>
+            <string>com.apple.dnsSettings.managed</string>
+            <key>PayloadUUID</key>
+            <string>e7bae410-5ed3-48e5-9e5a-9d396aca92c1</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+        </dict>
+    </array>
+    
+    <!-- 其他配置保持不变 -->
+    <key>PayloadDescription</key>
+    <string>此配置文件用于屏蔽钉钉的服务器验证和Cloudflare网关。</string>
+    <key>PayloadDisplayName</key>
+    <string>钉钉检测屏蔽</string>
+    <key>PayloadIdentifier</key>
+    <string>com.certblock.profile</string>
+    <key>PayloadOrganization</key>
+    <string>钉钉屏蔽</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadScope</key>
+    <string>User</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>ae82bf43-ff3b-431e-984c-c991bf4b4e30</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>
