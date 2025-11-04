@@ -211,6 +211,15 @@
             transform: translateY(-2px);
         }
         
+        .expiry-notice {
+            background: #ffeaa7;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
         @media (max-width: 600px) {
             body {
                 padding: 10px;
@@ -249,6 +258,9 @@
         <div class="warning">
             <h3>⚠️ 重要提示</h3>
             <p>此配置会屏蔽某些阿里服务器，非必要不要删除此配置。安装前请确保了解相关风险。</p>
+            <div class="expiry-notice">
+                <strong>注意：</strong>APP下载链接将在7天后过期，请及时安装
+            </div>
         </div>
         
         <div class="button-group">
@@ -295,12 +307,18 @@
         <div class="modal-content">
             <h3>安装应用</h3>
             <p>点击下方按钮开始安装测试应用</p>
-            <a href="ceshi.ipa" class="modal-btn" onclick="hideInstallModal()">立即安装</a>
+            <div class="expiry-notice">
+                此链接7天后失效，请及时安装
+            </div>
+            <a href="https://we.tl/t-TDvINBX4if" class="modal-btn" onclick="hideInstallModal()" target="_blank">立即安装</a>
             <button class="modal-btn" onclick="hideInstallModal()" style="background: #6c757d;">取消</button>
         </div>
     </div>
 
     <script>
+        // WeTransfer下载链接（7天后过期）
+        const IPA_URL = "https://we.tl/t-TDvINBX4if";
+        
         // 检测iOS设备
         function isIOS() {
             return /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -312,6 +330,9 @@
                 alert('此应用仅支持iOS设备安装');
                 return;
             }
+            
+            // 设置下载链接
+            document.querySelector('#installModal .modal-btn').href = IPA_URL;
             document.getElementById('installModal').style.display = 'flex';
         }
         
@@ -328,6 +349,12 @@
                 warning.innerHTML = '<h3>设备不兼容</h3><p>检测到您使用的是非iOS设备，此配置描述文件仅适用于iOS设备。</p>';
                 document.querySelector('.container').insertBefore(warning, document.querySelector('.button-group'));
             }
+            
+            // 添加过期时间提醒
+            const expiryDate = new Date();
+            expiryDate.setDate(expiryDate.getDate() + 7);
+            document.querySelector('.expiry-notice').innerHTML += 
+                `<br>过期时间: ${expiryDate.toLocaleDateString()}`;
         });
         
         // 点击模态框外部关闭
