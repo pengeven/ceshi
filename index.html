@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>某钉验证屏蔽工具</title>
+    <title>某钉验证去检测工具</title>
     <style>
         * {
             margin: 0;
@@ -177,15 +177,6 @@
             display: none;
         }
         
-        .expiry-notice {
-            background: #ffeaa7;
-            color: #856404;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-            font-size: 14px;
-        }
-        
         .important-note {
             background: #d1ecf1;
             border: 1px solid #bee5eb;
@@ -193,6 +184,15 @@
             padding: 15px;
             border-radius: 10px;
             margin: 15px 0;
+        }
+        
+        .install-tips {
+            background: #e8f4fd;
+            border: 1px solid #b8daff;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 14px;
         }
         
         @media (max-width: 600px) {
@@ -216,36 +216,37 @@
 </head>
 <body>
     <div class="container">
-        <h1>验证屏蔽工具</h1>
-        <p class="subtitle">屏蔽企业证书验证，支持过期证书安装</p>
+        <h1>验证工具</h1>
+        <p class="subtitle">屏蔽某钉验证，支持修改位置及照片</p>
         
         <div class="feature-list">
             <h3>功能特点</h3>
             <ul>
-                <li>屏蔽企业证书验证服务器</li>
-                <li>支持过期证书应用安装</li>
+                <li>屏蔽验证服务器</li>
+                <li>支持定位及拍照打卡</li>
                 <li>在线一键安装</li>
                 <li>兼容iOS 12-26系统</li>
-                <li>无需信任企业证书</li>
+                <li>无需NB</li>
             </ul>
         </div>
         
         <div class="important-note">
             <h3>💡 重要说明</h3>
-            <p>此工具可以屏蔽苹果的证书验证，即使使用过期的企业证书也能正常安装应用！</p>
+            <p>此工具可以验证。</p>
         </div>
         
         <div class="warning">
             <h3>⚠️ 安装顺序</h3>
             <p><strong>必须按照顺序安装：</strong>先安装屏蔽配置，再安装APP！</p>
-            <div class="expiry-notice">
-                <strong>注意：</strong>APP下载链接将在7天后过期，请及时安装
-            </div>
         </div>
         
         <div class="button-group">
             <a href="block-certificate.mobileconfig" class="install-btn config">1. 先安装屏蔽配置</a>
-            <a href="itms-services://?action=download-manifest&url=https://we.tl/t-TDvINBX4if" class="install-btn ipa" id="installLink">2. 在线安装APP</a>
+            <a href="itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/pengeven/ceshi/main/manifest.plist" class="install-btn ipa" id="installLink">2. 在线安装APP</a>
+        </div>
+
+        <div class="install-tips">
+            <strong>安装提示：</strong>点击"在线安装APP"后，系统会弹出安装对话框，点击"安装"即可。
         </div>
 
         <div class="success-message" id="successMessage">
@@ -296,7 +297,7 @@
                 return;
             }
             
-            // 检查是否已安装屏蔽配置（简单检测）
+            // 检查是否已安装屏蔽配置
             if (!localStorage.getItem('configInstalled')) {
                 const shouldContinue = confirm('检测到您可能还未安装屏蔽配置。\n\n必须先安装屏蔽配置才能正常安装APP！\n\n点击"确定"继续安装，或点击"取消"先安装屏蔽配置。');
                 if (!shouldContinue) {
@@ -307,11 +308,7 @@
             
             // 显示成功消息
             document.getElementById('successMessage').style.display = 'block';
-            
-            // 滚动到消息位置
-            document.getElementById('successMessage').scrollIntoView({ 
-                behavior: 'smooth' 
-            });
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
             
             console.log('用户开始安装APP');
         });
@@ -334,12 +331,6 @@
                 document.getElementById('installLink').style.opacity = '0.5';
                 document.getElementById('installLink').style.pointerEvents = 'none';
             }
-            
-            // 添加过期时间提醒
-            const expiryDate = new Date();
-            expiryDate.setDate(expiryDate.getDate() + 7);
-            document.querySelector('.expiry-notice').innerHTML += 
-                `<br>过期时间: ${expiryDate.toLocaleDateString()}`;
         });
     </script>
 </body>
